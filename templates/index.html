@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body>
+    <h2>Handcrafed Bakery Items</h2>
+    <p>Explore our wide variety of freshly baked goods</p>
+    <div class="bakery-filter">
+        <!-- filter options: All, Bread, Pastries, cakes& tarts, cookies, seasonal -->
+        <button type="button" data-category="All">All</button>
+        <button type="button" data-category="Bakery">Bakery</button>
+        <button type="button" data-category="Bread">Bread</button>
+        <button type="button" data-category="Pastries">Pastries</button>
+        <button type="button" data-category="Cakes & Tarts">Cakes & Tarts</button>
+        <button type="button" data-category="Cookies">Cookies</button>
+        <button type="button" data-category="Seasonal">Seasonal</button>
+    </div>
+    <script>
+        // filter menu to see all when the "All" button is clicked
+        // filter menu to see bakery items when the "Bakery" button is clicked
+        // filter menu to see bread items when the "Bread" button is clicked
+        // filter menu to see pastries items when the "Pastries" button is clicked
+        // filter menu to see cakes & tarts items when the "Cakes & Tarts" button is clicked
+        // filter menu to see cookies items when the "Cookies" button is clicked
+        // filter menu to see seasonal items when the "Seasonal" button is clicked
+        const filterButtons = document.querySelectorAll('button[data-category]');
+        const bakeryItems = document.querySelectorAll('.bakery');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-category').toLowerCase();
+                bakeryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category').toLowerCase() === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- Bakery items containers -->
+    <div class="bakery-items-container">
+        {% for item in bakery_items %}
+            <div class="bakery-item-card">
+                <div class="bakery" data-category="{{ item.category }}">
+                    {% if item.image_url %}
+                    <img src="{{url_for('static', filename='img/' ~item.image_url) }}" alt="{{ item.Name }}">
+                    {% endif %}
+                    <h3 class="bakery_item_name">{{ item.Name }}</h3>
+                    <p class="bakery_item_description">{{ item.description }}</p>
+                    <p>Price: ${{ item.price }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <style>
+        body {
+            background-color: #dbc114;
+        }
+        .bakery-items-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .bakery-item-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            background-color:beige;
+        }
+        .bakery-item-card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .bakery-item-card h3 {
+            margin: 10px 0 5px;
+        }
+        .bakery-item-card p {
+            margin: 5px 0;
+        }
+    </style>
+</body>
+{% endblock %}

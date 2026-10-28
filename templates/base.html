@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bakery Product Catalog</title>
+    </head>
+    <body>
+    <header class="site-header">
+        <h1 class="site-title">Bakery Product Catalog</h1>
+        <p class="site-description">Browse our delicious bakery items!</p>
+    </header>
+    <style>
+        .site-header {
+            display: flex;
+            width: 2000px;
+            height: 100px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            padding: 10px 10px;
+            background-color: #f6f6f6;
+        }
+    </style>
+    {% block content %}{% endblock %}
+    <footer class="site-footer">
+        <p>&copy; 2024 Bakery Product Catalog</p>
+    </footer>
+</body>
+</html>
